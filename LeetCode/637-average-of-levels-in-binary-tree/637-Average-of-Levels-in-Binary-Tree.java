@@ -15,31 +15,16 @@
  */
 class Solution {
     public List<Double> averageOfLevels(TreeNode root) {
-        List<List<Integer>> useFull = new ArrayList<>();
         List<Double> ans = new ArrayList<>();
-        useFull=BFS(root);
-        for(int i=0;i<useFull.size();i++){
-                Double a=0.00000;
-                int count = 0;
-            for(int j=0;j<useFull.get(i).size();j++){
-                count++;
-                a+=useFull.get(i).get(j);
-            }
-            ans.add(a/count);
-        }
-        return ans;
-    }
-    public List<List<Integer>> BFS(TreeNode root){
-        List<List<Integer>> ans = new ArrayList<>();
-        if(root==null) return ans ;
+        if(root==null)return ans;
+        Double sum =0.00000;
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         while(!q.isEmpty()){
             int size = q.size();
-            List<Integer> subAns = new ArrayList<>();
             for(int i=0;i<size;i++){
                 TreeNode curr = q.remove();
-                subAns.add(curr.val);
+                sum+=curr.val;
                 if(curr.left!=null){
                     q.add(curr.left);
                 }
@@ -47,9 +32,9 @@ class Solution {
                     q.add(curr.right);
                 }
             }
-            ans.add(subAns);
+            ans.add(sum/size);
+            sum=0.00000;
         }
-        return ans; 
+        return ans;
     }
-
 }
