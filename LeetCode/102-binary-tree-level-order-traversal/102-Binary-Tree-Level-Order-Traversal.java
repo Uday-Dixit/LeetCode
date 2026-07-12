@@ -19,23 +19,19 @@ class Solution {
         if(root==null){
             return ans;
         }
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        while(!q.isEmpty()){
-            int size = q.size();
-            List<Integer> level = new ArrayList<>();
-            for(int i=0;i<size;i++){
-                TreeNode curr = q.remove();
-                level.add(curr.val);
-                if(curr.left!=null){
-                    q.add(curr.left);
-                }
-                if(curr.right!=null){
-                    q.add(curr.right);
-                }
-            }
-            ans.add(level);
-        }
+        solve(root,0,ans);
         return ans;
+    }
+    public void solve(TreeNode node, int level, List<List<Integer>> ans){
+        if(node==null){
+            return;
+        }
+        if(level==ans.size()){
+            List<Integer> levelAns = new ArrayList<>();
+            ans.add(levelAns);
+        }
+        ans.get(level).add(node.val);
+        solve(node.left,level+1,ans);
+        solve(node.right,level+1,ans);
     }
 }
